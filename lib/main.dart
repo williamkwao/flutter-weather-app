@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:weather/weather.dart';
 import 'package:weather_icons/weather_icons.dart';
 
-const API_KEY = '172beb1494bf8e201cdff9f86381793d';
-WeatherStation weatherStation = new WeatherStation(API_KEY);
-void main() => runApp(MyApp());
+WeatherStation weatherStation;
+main() async {
+   await DotEnv().load('.env');
+   weatherStation = new WeatherStation(DotEnv().env['WEATHER_API_KEY']);
+   runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
